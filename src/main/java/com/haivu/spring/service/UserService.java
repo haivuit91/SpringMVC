@@ -19,5 +19,7 @@ public interface UserService {
 	boolean delUser(int userId);
 
 	int getPageNumber();
+	
+	boolean updateStatus(int userId, boolean checked);
 
 }

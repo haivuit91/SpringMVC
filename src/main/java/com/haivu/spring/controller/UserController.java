@@ -109,7 +109,17 @@ public class UserController {
 		if (userSv.delUser(userId)) {
 			return "Delete user successfully";
 		} else {
-			return "Fail";
+			return "Delete user fail";
+		}
+	}
+
+	@RequestMapping(value = "update-status/{userId}/{checked}", method = RequestMethod.POST)
+	public @ResponseBody String updateStatus(@PathVariable Integer userId,
+			@PathVariable boolean checked) {
+		if (userSv.updateStatus(userId, checked)) {
+			return "Update status user successfully";
+		} else {
+			return "Update status user fail";
 		}
 	}
 

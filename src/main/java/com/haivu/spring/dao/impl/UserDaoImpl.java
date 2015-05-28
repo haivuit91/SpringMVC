@@ -233,4 +233,35 @@ public class UserDaoImpl implements UserDao {
 		}
 		return pageNumber;
 	}
+
+	@Override
+	public boolean updateStatus(int userId, boolean checked) {
+		boolean isCheck = false;
+		String sql = "UPDATE User SET isActive = ? WHERE userId = ?";
+		Connection conn = null;
+		PreparedStatement ps = null;
+		try {
+			conn = dataSource.getConnection();
+			ps = conn.prepareStatement(sql);
+			ps.setBoolean(1, checked);
+			ps.setInt(2, userId);
+			int check = ps.executeUpdate();
+			if (check != 0) {
+				isCheck = true;
+			}
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+
+		} finally {
+			if (conn != null) {
+				try {
+					ps.close();
+					conn.close();
+				} catch (SQLException e) {
+					throw new RuntimeException(e);
+				}
+			}
+		}
+		return isCheck;
+	}
 }

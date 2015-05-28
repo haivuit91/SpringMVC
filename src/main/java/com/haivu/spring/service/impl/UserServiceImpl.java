@@ -45,4 +45,9 @@ public class UserServiceImpl implements UserService {
 		return userDao.getPageNumber();
 	}
 
+	@Override
+	public boolean updateStatus(int userId, boolean checked) {
+		return userDao.updateStatus(userId, checked);
+	}
+
 }

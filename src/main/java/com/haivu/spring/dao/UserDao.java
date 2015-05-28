@@ -20,4 +20,6 @@ public interface UserDao {
 
 	int getPageNumber();
 
+	boolean updateStatus(int userId, boolean checked);
+
 }

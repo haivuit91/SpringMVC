@@ -13,6 +13,8 @@
 	rel="stylesheet">
 <link href="<c:url value="/resources/css/bootstrap-theme.min.css" />"
 	rel="stylesheet">
+<link href="<c:url value="/resources/css/bootstrap-switch.css" />"
+	rel="stylesheet">
 
 <script src="<c:url value="/resources/js/jquery-1.9.1.min.js" />"></script>
 <script src="<c:url value="/resources/js/jquery.confirm.js" />"></script>
@@ -70,7 +72,7 @@
 						<th>Full name</th>
 						<!-- 						<th>Date of birth</th> -->
 						<th>Email</th>
-						<th>Active</th>
+						<th>Status</th>
 						<th style="width: 145px"></th>
 					</tr>
 				</thead>
@@ -83,7 +85,16 @@
 							<td>${listUser.fullName}</td>
 							<%-- 							<td>${listUser.dateOfBirth}</td> --%>
 							<td>${listUser.email}</td>
-							<td>${listUser.active}</td>
+							<td><c:choose>
+									<c:when test="${listUser.active == true}">
+										<input type="checkbox" class="status" name="my-checkbox"
+											value="${listUser.userId}" checked="checked" />
+									</c:when>
+									<c:otherwise>
+										<input type="checkbox" class="status" name="my-checkbox"
+											value="${listUser.userId}" />
+									</c:otherwise>
+								</c:choose></td>
 							<td><a class="btn btn-success" role="button"
 								href="${pageContext.request.contextPath}/user/edit-user?page=${currentPage}&userId=${listUser.userId}">Edit</a>
 								<button class="btn btn-danger delConfirm"
@@ -138,31 +149,57 @@
 	</div>
 
 	<script type="text/javascript">
-		$(".delConfirm").confirm({
-			confirm : function(button) {
-				var userId = $(button).data("id");
-				$.ajax({
-					type : 'DELETE',
-					url : '${pageContext.request.contextPath}/user/del-user/' + userId,
-					success : function(response) {
-						alert(response);
-						location.reload();
-					},
-					error : function(e) {
-						alert('Error: ' + e);
-					}
-				});
-			},
-			cancel : function(button) {
-				return false;
-			},
-			confirmButton : "Yes",
-			cancelButton : "No",
-			post : true
-		});
+		$(".delConfirm")
+				.confirm(
+						{
+							confirm : function(button) {
+								var userId = $(button).data("id");
+								$
+										.ajax({
+											type : 'DELETE',
+											url : '${pageContext.request.contextPath}/user/del-user/'
+													+ userId,
+											success : function(response) {
+												alert(response);
+												location.reload();
+											},
+											error : function(e) {
+												alert('Error: ' + e);
+											}
+										});
+							},
+							cancel : function(button) {
+								return false;
+							},
+							confirmButton : "Yes",
+							cancelButton : "No",
+							post : true
+						});
+		$('table td input.status:checkbox')
+				.click(
+						function() {
+							var that = this;
+							var check = this.checked;
+							var userId = $(this).val();
+							$
+									.ajax({
+										type : 'POST',
+										url : '${pageContext.request.contextPath}/user/update-status/'
+												+ userId + '/' + check,
+										success : function(response) {
+											alert(response);
+										},
+										error : function(e) {
+											$(that).prop('checked', false);
+											alert('Error: ' + e);
+										}
+									});
+						});
 	</script>
 
+	<script src="<c:url value="/resources/js/bootstrap-switch.js" />"></script>
 	<script src="<c:url value="/resources/js/bootstrap.min.js" />"></script>
+	<script src="<c:url value="/resources/js/jquery.min.js" />"></script>
 	<script src="<c:url value="/resources/js/run_prettify.js" />"></script>
 </body>
 </html>
