@@ -62,6 +62,17 @@
 	</nav>
 	<div class="container" style="margin-top: 100px">
 		<div class="row">
+<!-- 			<div class="btn-group" role="group"> -->
+<!-- 				<button type="button" class="btn btn-default dropdown-toggle" -->
+<!-- 					data-toggle="dropdown" aria-expanded="false"> -->
+<!-- 					Show <span class="caret"></span> -->
+<!-- 				</button> -->
+<!-- 				<ul class="dropdown-menu" role="menu"> -->
+<%-- 					<li><a href="${pageContext.request.contextPath}/user/show-user/5">5</a></li> --%>
+<%-- 					<li><a href="${pageContext.request.contextPath}/user/show-user/10">10</a></li> --%>
+<%-- 					<li><a href="${pageContext.request.contextPath}/user/show-user/15">15</a></li> --%>
+<!-- 				</ul> -->
+<!-- 			</div> -->
 			<a type="button" class="btn btn-primary"
 				href="${pageContext.request.contextPath}/user/add-user?page=${currentPage}">Add
 				new User</a>
@@ -76,7 +87,7 @@
 						<!-- 						<th>Date of birth</th> -->
 						<th>Email</th>
 						<th>Active</th>
-						<th></th>
+						<th style="width: 145px"></th>
 					</tr>
 				</thead>
 				<tbody>
@@ -143,27 +154,31 @@
 	</div>
 
 	<script type="text/javascript">
-		$("#delConfirm").confirm({
-			confirm : function(button) {
-				var userId = $(button).data("id");
-				$.ajax({
-					type : 'DELETE',
-					url : '${pageContext.request.contextPath}/user/del-user/' + userId,
-					success : function(response) {
-						alert(response);
-						location.reload();
-					},
-					error : function(e) {
-						alert('Error: ' + e);
-					}
-				});
-			},
-			cancel : function(button) {
-			},
-			confirmButton : "Yes",
-			cancelButton : "No",
-			post : true
-		});
+		$("#delConfirm")
+				.confirm(
+						{
+							confirm : function(button) {
+								var userId = $(button).data("id");
+								$
+										.ajax({
+											type : 'DELETE',
+											url : '${pageContext.request.contextPath}/user/del-user/'
+													+ userId,
+											success : function(response) {
+												alert(response);
+												location.reload();
+											},
+											error : function(e) {
+												alert('Error: ' + e);
+											}
+										});
+							},
+							cancel : function(button) {
+							},
+							confirmButton : "Yes",
+							cancelButton : "No",
+							post : true
+						});
 	</script>
 
 	<script

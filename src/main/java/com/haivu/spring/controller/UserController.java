@@ -24,9 +24,11 @@ public class UserController {
 	@Qualifier(UserService.NAME)
 	private UserService userSv;
 
+	private int rowShow;
+
 	public void setPage(Integer page, ModelMap model) {
 		int currentPage = 1;
-		int maxRow = 5;
+		int maxRow = this.getRowShow();
 		if (page != null)
 			currentPage = page;
 
@@ -55,6 +57,11 @@ public class UserController {
 		model.put("listUser", listUser);
 		model.put("pageSize", pageSize);
 		model.put("currentPage", currentPage);
+	}
+
+	@RequestMapping(value = "show-user/{row}", method = RequestMethod.POST)
+	public void showUser(@PathVariable Integer row) {
+		this.setRowShow(row);
 	}
 
 	@RequestMapping(value = "users-list", method = RequestMethod.GET)
@@ -108,6 +115,17 @@ public class UserController {
 		} else {
 			return "Fail";
 		}
+	}
+
+	public int getRowShow() {
+		if (rowShow != 0) {
+			
+		}
+		return rowShow;
+	}
+
+	public void setRowShow(int rowShow) {
+		this.rowShow = rowShow;
 	}
 
 }
