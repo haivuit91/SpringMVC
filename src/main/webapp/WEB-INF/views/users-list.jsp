@@ -9,28 +9,12 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>AsianTech - HaiVu</title>
 
-<%-- <link href="<c:url value="/resources/css/bootstrap.min.css" />" --%>
-<!-- 	rel="stylesheet"> -->
-<%-- <link href="<c:url value="/resources/css/bootstrap-theme.min.css" />" --%>
-<!-- 	rel="stylesheet"> -->
-<%-- <script src="<c:url value="/resources/js/bootstrap.min.js" />"></script> --%>
-<%-- <script src="<c:url value="/resources/js/jquery.min.js" />"></script> --%>
-<!-- <link -->
-<%-- 	href="<c:url value="/resources/bootstrapValidator/css/bootstrapValidator.css" />" --%>
-<!-- 	rel="stylesheet"> -->
-<!-- <script -->
-<%-- 	src="<c:url value="/resources/bootstrapValidator/js/bootstrapValidator.js" />"></script> --%>
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
-<!-- Bootstrap -->
-<!-- Latest compiled and minified CSS -->
-<link rel="stylesheet"
-	href="https://netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
-<!-- Optional theme -->
-<link rel="stylesheet"
-	href="https://netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap-theme.min.css">
+<link href="<c:url value="/resources/css/bootstrap.min.css" />"
+	rel="stylesheet">
+<link href="<c:url value="/resources/css/bootstrap-theme.min.css" />"
+	rel="stylesheet">
 
-<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+<script src="<c:url value="/resources/js/jquery-1.9.1.min.js" />"></script>
 <script src="<c:url value="/resources/js/jquery.confirm.js" />"></script>
 
 </head>
@@ -62,17 +46,17 @@
 	</nav>
 	<div class="container" style="margin-top: 100px">
 		<div class="row">
-<!-- 			<div class="btn-group" role="group"> -->
-<!-- 				<button type="button" class="btn btn-default dropdown-toggle" -->
-<!-- 					data-toggle="dropdown" aria-expanded="false"> -->
-<!-- 					Show <span class="caret"></span> -->
-<!-- 				</button> -->
-<!-- 				<ul class="dropdown-menu" role="menu"> -->
-<%-- 					<li><a href="${pageContext.request.contextPath}/user/show-user/5">5</a></li> --%>
-<%-- 					<li><a href="${pageContext.request.contextPath}/user/show-user/10">10</a></li> --%>
-<%-- 					<li><a href="${pageContext.request.contextPath}/user/show-user/15">15</a></li> --%>
-<!-- 				</ul> -->
-<!-- 			</div> -->
+			<!-- 			<div class="btn-group" role="group"> -->
+			<!-- 				<button type="button" class="btn btn-default dropdown-toggle" -->
+			<!-- 					data-toggle="dropdown" aria-expanded="false"> -->
+			<!-- 					Show <span class="caret"></span> -->
+			<!-- 				</button> -->
+			<!-- 				<ul class="dropdown-menu" role="menu"> -->
+			<%-- 					<li><a href="${pageContext.request.contextPath}/user/show-user/5">5</a></li> --%>
+			<%-- 					<li><a href="${pageContext.request.contextPath}/user/show-user/10">10</a></li> --%>
+			<%-- 					<li><a href="${pageContext.request.contextPath}/user/show-user/15">15</a></li> --%>
+			<!-- 				</ul> -->
+			<!-- 			</div> -->
 			<a type="button" class="btn btn-primary"
 				href="${pageContext.request.contextPath}/user/add-user?page=${currentPage}">Add
 				new User</a>
@@ -102,7 +86,7 @@
 							<td>${listUser.active}</td>
 							<td><a class="btn btn-success" role="button"
 								href="${pageContext.request.contextPath}/user/edit-user?page=${currentPage}&userId=${listUser.userId}">Edit</a>
-								<button class="btn btn-primary" id="delConfirm"
+								<button class="btn btn-danger delConfirm"
 									data-id="${listUser.userId}"
 									data-text="Are you sure you want to delete user ${listUser.userName}?">Delete</button>
 							</td>
@@ -154,36 +138,31 @@
 	</div>
 
 	<script type="text/javascript">
-		$("#delConfirm")
-				.confirm(
-						{
-							confirm : function(button) {
-								var userId = $(button).data("id");
-								$
-										.ajax({
-											type : 'DELETE',
-											url : '${pageContext.request.contextPath}/user/del-user/'
-													+ userId,
-											success : function(response) {
-												alert(response);
-												location.reload();
-											},
-											error : function(e) {
-												alert('Error: ' + e);
-											}
-										});
-							},
-							cancel : function(button) {
-							},
-							confirmButton : "Yes",
-							cancelButton : "No",
-							post : true
-						});
+		$(".delConfirm").confirm({
+			confirm : function(button) {
+				var userId = $(button).data("id");
+				$.ajax({
+					type : 'DELETE',
+					url : '${pageContext.request.contextPath}/user/del-user/' + userId,
+					success : function(response) {
+						alert(response);
+						location.reload();
+					},
+					error : function(e) {
+						alert('Error: ' + e);
+					}
+				});
+			},
+			cancel : function(button) {
+				return false;
+			},
+			confirmButton : "Yes",
+			cancelButton : "No",
+			post : true
+		});
 	</script>
 
-	<script
-		src="http://netdna.bootstrapcdn.com/bootstrap/3.0.2/js/bootstrap.min.js"></script>
-	<script
-		src="https://google-code-prettify.googlecode.com/svn/loader/run_prettify.js"></script>
+	<script src="<c:url value="/resources/js/bootstrap.min.js" />"></script>
+	<script src="<c:url value="/resources/js/run_prettify.js" />"></script>
 </body>
 </html>

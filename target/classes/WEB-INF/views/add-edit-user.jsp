@@ -65,8 +65,8 @@
 			</div>
 		</div>
 		<div id="row">
-			<form:form id="form-user" class="form-horizontal" action="save-user"
-				method="post" modelAttribute="user">
+			<form:form id="form-user" class="form-horizontal"
+				action="save-user?page=${page }" method="post" modelAttribute="user">
 				<form:hidden path="userId" />
 				<div class="form-group">
 					<label class="col-lg-3 control-label">Username</label>

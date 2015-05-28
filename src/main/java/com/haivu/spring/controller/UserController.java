@@ -92,13 +92,16 @@ public class UserController {
 	}
 
 	@RequestMapping(value = "save-user", method = RequestMethod.POST)
-	public String saveUser(@ModelAttribute(value = "user") User user) {
+	public String saveUser(
+			@RequestParam(value = "page", required = false) Integer page,
+			@ModelAttribute(value = "user") User user) {
 		if (user.getUserId() != 0) {
 			userSv.editUser(user);
+			return "redirect:users-list?page=" + page;
 		} else {
 			userSv.addNewUser(user);
+			return "redirect:users-list";
 		}
-		return "redirect:users-list";
 	}
 
 	@RequestMapping(value = "del-user/{userId}", method = RequestMethod.DELETE)
